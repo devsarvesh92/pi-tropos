@@ -24,6 +24,8 @@ Personal pi customization bundle. One package, installable anywhere.
 - **Clean footer** — one line: `project branch` left; `↑in ↓out Rcache Wcache $cost` plus
   the dumbzone gauge right. Zero-valued counters hide; no full paths, no cache-hit %,
   no session titles. Auto-named sessions are sanitized (no markdown table junk).
+- **`/zen` mode** — reading mode for brainstorming: collapses all tool output and shrinks
+  the footer to `$cost` + the ctx gauge. `/zen` again restores your previous state.
 - **Barista mascot** — the working spinner becomes a steaming cup of kaapi; every other
   brew cycle it's a boba 🧋. Hidden thinking blocks read "Steeping…".
 - **pi-smritikosh** — semantic codebase search, bundled as a dependency. One install
@@ -45,3 +47,20 @@ npm run typecheck
 ```
 
 No build step — pi loads the TypeScript directly.
+
+## Font (recommended)
+
+pi inherits the terminal's font — it can't set one. In VS Code (where pi usually runs):
+
+```jsonc
+// settings.json
+"terminal.integrated.fontFamily": "JetBrains Mono",
+"terminal.integrated.fontSize": 14,
+"terminal.integrated.lineHeight": 1.35,
+"terminal.integrated.fontLigatures.enabled": true
+```
+
+Good code-reading fonts: **JetBrains Mono** (free, tall x-height, superb at small sizes —
+`brew install --cask font-jetbrains-mono`), **SF Mono** (preinstalled on macOS),
+**Monaspace Neon** (GitHub's family — `brew install --cask font-monaspace`), **Berkeley
+Mono** (paid, beautiful). Size 13–14 + lineHeight 1.3–1.4 is the biggest readability win.
