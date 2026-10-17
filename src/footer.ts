@@ -52,11 +52,11 @@ function totals(ctx: ExtensionContext): Totals {
 
 function telemetryLine(t: Totals) {
 	if (t.input === 0) return "";
-	const parts = [`↑${fmt(t.input)}`, `↓${fmt(t.output)}`];
-	if (t.cacheRead > 0) parts.push(`R${fmt(t.cacheRead)}`);
-	if (t.cacheWrite > 0) parts.push(`W${fmt(t.cacheWrite)}`);
+	const parts = [`in ${fmt(t.input)}`, `out ${fmt(t.output)}`];
+	if (t.cacheRead > 0) parts.push(`cached ${fmt(t.cacheRead)}`);
+	if (t.cacheWrite > 0) parts.push(`stored ${fmt(t.cacheWrite)}`);
 	parts.push(`$${t.cost.toFixed(2)}`);
-	return parts.join(" ");
+	return parts.join("  ");
 }
 
 let zen = false;

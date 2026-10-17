@@ -21,9 +21,11 @@ Personal pi customization bundle. One package, installable anywhere.
 - **`kaapi` theme** — filter-coffee dark: deep espresso base (`#15100D`), latte-foam text
   (`#E8DCCB`), caramel accent (`#D9984A`), matcha success, terracotta error. Warm and
   caffeinated. Select via `/settings` or `"theme": "kaapi"`.
-- **Clean footer** — one line: `project branch` left; `↑in ↓out Rcache Wcache $cost` plus
-  the dumbzone gauge right. Zero-valued counters hide; no full paths, no cache-hit %,
-  no session titles. Auto-named sessions are sanitized (no markdown table junk).
+- **Clean footer** — one line: `project branch` left; `in · out · cached · stored · $cost`
+  plus the dumbzone `ctx` gauge right. Zero-valued counters hide; no full paths, no
+  cache-hit %, no session titles. Auto-named sessions are sanitized (no markdown junk).
+  `ctx` is the live context snapshot; the others are cumulative session billing counters
+  (`cached`/`stored` = provider prompt-cache reads/writes, re-read every turn).
 - **`/zen` mode** — reading mode for brainstorming: collapses all tool output and shrinks
   the footer to `$cost` + the ctx gauge. `/zen` again restores your previous state.
 - **`/peek <path>`** — transient code viewer: syntax-highlighted, line-numbered overlay.
