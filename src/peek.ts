@@ -24,7 +24,8 @@ export default function peek(pi: ExtensionAPI) {
 				ctx.ui.notify("/peek needs interactive mode", "error");
 				return;
 			}
-			const target = args.trim();
+			// Strip surrounding quotes — users habitually paste 'paths' or "paths".
+			const target = args.trim().replace(/^['"]|['"]$/g, "");
 			if (!target) {
 				ctx.ui.notify("Usage: /peek <path>", "info");
 				return;
