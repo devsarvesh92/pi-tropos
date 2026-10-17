@@ -1,6 +1,6 @@
 {
   "name": "pi-tropos",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Personal pi customization bundle — context-health indicator, session handoff, session browser",
   "type": "module",
   "keywords": [
@@ -14,7 +14,8 @@
   },
   "files": [
     "index.ts",
-    "src"
+    "src",
+    "themes"
   ],
   "pi": {
     "extensions": [
