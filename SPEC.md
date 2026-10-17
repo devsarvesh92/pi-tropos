@@ -1,0 +1,26 @@
+# Requirements — taste pi extension
+
+## Functional
+
+| ID | Requirement | Notes |
+|----|-------------|-------|
+| FR-1 | **Dumb-zone detection** — continuously indicate context health so the user knows when LLM quality is degrading | Footer status `ctx Nk · N%`, dim → yellow → red |
+| FR-1a | **Threshold rule** — dumb zone = ≥100k tokens OR ≥40% of context window, whichever hits first; warning from 80% of that line | Constants in `dumbzone.ts` |
+| FR-1b | **Nudge once** when entering the dumb zone | Re-arms after compaction/new session |
+| FR-2 | **Escape hatch** — one command to fork the work: summarize current session, review/edit summary, start a new session seeded with it; old session preserved and linked | `/fresh` command, `parentSession` link |
+| FR-3 | **Persist all sessions** | Pi persists every session to `~/.pi/agent/sessions/` natively |
+| FR-3a | **Session browser** — clean picker to find and resume past sessions | `/sessions` (project), `/sessions all` (everything) |
+| FR-3b | **Auto-name sessions** from first message for readable browsing | After turn 1, if unnamed |
+| FR-4 | **Background agent** — run an execution task in a background agent while continuing in the foreground; notify on completion; inspectable afterwards | Design agreed: detached `pi -p` subprocess, log file, `/bg` command. Open: uncommitted-changes collision policy |
+| FR-5 | **Clean theme** — look & feel inspired by commandcode.ai | Needs: terminal name + vibe/palette |
+| FR-6 | **Reading mode** — clean, low-noise view for brainstorming | Proposed: `/focus` toggle (collapse tool output, minimal chrome) |
+| FR-7 | **Font** — change pi's font | Terminal-level setting (e.g. Ghostty `font-family`), not a pi setting |
+
+## Non-functional
+
+| ID | Requirement |
+|----|-------------|
+| NFR-1 | No AI slop — minimal code, no speculative features |
+| NFR-2 | One commit per feature, clean history |
+| NFR-3 | Brainstorm each feature before implementing, one at a time |
+| NFR-4 | Extension auto-loads from `~/.pi/agent/extensions/` |

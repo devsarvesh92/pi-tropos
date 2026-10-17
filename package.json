@@ -1,0 +1,34 @@
+{
+  "name": "oh-my-pi",
+  "version": "0.1.0",
+  "description": "Personal pi customization bundle — context-health indicator, session handoff, session browser",
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "pi-coding-agent"
+  ],
+  "license": "MIT",
+  "files": [
+    "index.ts",
+    "src"
+  ],
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.86.1",
+    "@types/node": "^22.20.4",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}
