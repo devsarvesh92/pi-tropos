@@ -14,6 +14,10 @@ Personal pi customization bundle. One package, installable anywhere.
   session seeded with it. Old session preserved and linked via `parentSession`.
 - **`/sessions [all]`** — browse and resume past sessions (project-scoped or everything).
   Unnamed sessions are auto-named from the first user message.
+- **`commandcode` theme** — dark monochrome inspired by commandcode.ai: onyx background
+  (`#0B0B0C`), off-white text (`#E4E4E7`), slate-grey chrome, and color reserved for
+  diagnostics (mint `#4EFAAA` success, amber `#F59E0B` warning, crimson `#EF4444` error).
+  Select via `/settings` or `"theme": "commandcode"` in `settings.json`.
 - **pi-smritikosh** — semantic codebase search, bundled as a dependency. One install
   gets everything; don't also install `npm:pi-smritikosh` separately or it loads twice.
 

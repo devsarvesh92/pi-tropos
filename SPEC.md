@@ -12,7 +12,7 @@
 | FR-3a | **Session browser** — clean picker to find and resume past sessions | `/sessions` (project), `/sessions all` (everything) |
 | FR-3b | **Auto-name sessions** from first message for readable browsing | After turn 1, if unnamed |
 | FR-4 | **Background agent** — run an execution task in a background agent while continuing in the foreground; notify on completion; inspectable afterwards | Design agreed: detached `pi -p` subprocess, log file, `/bg` command. Open: uncommitted-changes collision policy |
-| FR-5 | **Clean theme** — look & feel inspired by commandcode.ai | Needs: terminal name + vibe/palette |
+| FR-5 | **Clean theme** — look & feel inspired by commandcode.ai | `commandcode` theme in `themes/` — onyx monochrome (#0B0B0C/#E4E4E7) with mint/amber/crimson diagnostics |
 | FR-6 | **Reading mode** — clean, low-noise view for brainstorming | Proposed: `/focus` toggle (collapse tool output, minimal chrome) |
 | FR-7 | **Font** — change pi's font | Terminal-level setting (e.g. Ghostty `font-family`), not a pi setting |
 
