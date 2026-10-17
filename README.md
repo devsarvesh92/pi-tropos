@@ -18,6 +18,9 @@ Personal pi customization bundle. One package, installable anywhere.
   (`#0B0B0C`), off-white text (`#E4E4E7`), slate-grey chrome, and color reserved for
   diagnostics (mint `#4EFAAA` success, amber `#F59E0B` warning, crimson `#EF4444` error).
   Select via `/settings` or `"theme": "commandcode"` in `settings.json`.
+- **`kaapi` theme** — filter-coffee dark: deep espresso base (`#15100D`), latte-foam text
+  (`#E8DCCB`), caramel accent (`#D9984A`), matcha success, terracotta error. Warm and
+  caffeinated. Select via `/settings` or `"theme": "kaapi"`.
 - **pi-smritikosh** — semantic codebase search, bundled as a dependency. One install
   gets everything; don't also install `npm:pi-smritikosh` separately or it loads twice.
 
