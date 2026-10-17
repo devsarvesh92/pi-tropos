@@ -21,6 +21,9 @@ Personal pi customization bundle. One package, installable anywhere.
 - **`kaapi` theme** — filter-coffee dark: deep espresso base (`#15100D`), latte-foam text
   (`#E8DCCB`), caramel accent (`#D9984A`), matcha success, terracotta error. Warm and
   caffeinated. Select via `/settings` or `"theme": "kaapi"`.
+- **Clean footer** — one line: `project branch` left; `↑in ↓out Rcache Wcache $cost` plus
+  the dumbzone gauge right. Zero-valued counters hide; no full paths, no cache-hit %,
+  no session titles. Auto-named sessions are sanitized (no markdown table junk).
 - **Barista mascot** — the working spinner becomes a steaming cup of kaapi; every other
   brew cycle it's a boba 🧋. Hidden thinking blocks read "Steeping…".
 - **pi-smritikosh** — semantic codebase search, bundled as a dependency. One install

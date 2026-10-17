@@ -16,7 +16,12 @@ import type { ExtensionAPI, ExtensionContext, SessionInfo } from "@earendil-work
 const TITLE_MAX = 60;
 
 function oneLine(text: string, max: number) {
-	const line = text.replace(/\s+/g, " ").trim();
+	// Strip markdown noise (tables, emphasis, headings) so pasted SPEC
+	// rows and the like don't become unreadable titles.
+	const line = text
+		.replace(/[|*#`>\[\]]+/g, " ")
+		.replace(/\s+/g, " ")
+		.trim();
 	return line.length > max ? `${line.slice(0, max - 1)}…` : line;
 }
 
