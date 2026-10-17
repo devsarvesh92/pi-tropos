@@ -6,7 +6,7 @@
 |----|-------------|-------|
 | FR-1 | **Dumb-zone detection** — continuously indicate context health so the user knows when LLM quality is degrading | Footer status `ctx Nk · N%`, dim → yellow → red |
 | FR-1a | **Threshold rule** — dumb zone = ≥100k tokens OR ≥40% of context window, whichever hits first; warning from 80% of that line | Constants in `dumbzone.ts` |
-| FR-1b | **Nudge once** when entering the dumb zone | Re-arms after compaction/new session |
+| FR-1b | **Prompt once** when a run settles in the dumb zone — confirm dialog offers to auto-run `/fresh`; decline = stay, won't re-ask | `agent_settled` + `pi.sendUserMessage("/fresh")`; re-arms after compaction/new session |
 | FR-2 | **Escape hatch** — one command to fork the work: summarize current session, review/edit summary, start a new session seeded with it; old session preserved and linked | `/fresh` command, `parentSession` link |
 | FR-3 | **Persist all sessions** | Pi persists every session to `~/.pi/agent/sessions/` natively |
 | FR-3a | **Session browser** — clean picker to find and resume past sessions | `/sessions` (project), `/sessions all` (everything) |

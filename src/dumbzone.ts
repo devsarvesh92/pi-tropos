@@ -6,14 +6,16 @@
  *   yellow  approaching the dumb zone (>= 80k tokens or >= 32%)
  *   red     dumb zone (>= 100k tokens or >= 40%) — quality degrades here
  *
- * Entering the dumb zone triggers a one-time nudge suggesting /fresh.
+ * When a run settles in the dumb zone, a one-time confirm prompt offers
+ * to fork into a fresh session (decline = stay, won't re-ask).
  *
  * /fresh summarizes the current session, lets you edit the summary,
  * then starts a new session with the summary as its first message.
  * The old session stays fully persisted and linked via parentSession.
+ * The same flow backs both /fresh and the dumb-zone prompt.
  */
 
-import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
+import type { ExtensionAPI, ExtensionCommandContext, ExtensionContext } from "@earendil-works/pi-coding-agent";
 
 const DUMB_TOKENS = 100_000; // dumb zone: this many tokens...
 const DUMB_PERCENT = 40; // ...or this much of the window, whichever hits first
@@ -44,6 +46,59 @@ function updateStatus(ctx: ExtensionContext) {
 	ctx.ui.setStatus(STATUS_KEY, theme.fg(color, `ctx ${Math.round(tokens / 1000)}k · ${Math.round(percent)}%`));
 }
 
+async function runFresh(ctx: ExtensionCommandContext) {
+	if (ctx.mode !== "tui") {
+		ctx.ui.notify("/fresh needs interactive mode", "error");
+		return;
+	}
+	if (!ctx.isIdle()) {
+		ctx.ui.notify("Wait for the current run to finish", "warning");
+		return;
+	}
+
+	const parentSession = ctx.sessionManager.getSessionFile();
+	ctx.ui.notify("Summarizing session…", "info");
+
+	ctx.compact({
+		customInstructions:
+			"Optimize for handoff to a fresh session: preserve decisions made, open questions, key file paths, and the current goal.",
+		onComplete: async (result) => {
+			const edited = await ctx.ui.editor(
+				"Summary for the fresh session — edit freely, Esc to cancel",
+				result.summary,
+			);
+			if (edited === undefined) {
+				ctx.ui.notify("Stayed in current session", "info");
+				return;
+			}
+
+			const summary = edited.trim();
+			const { cancelled } = await ctx.newSession({
+				parentSession: parentSession ?? undefined,
+				setup: async (sm) => {
+					sm.appendMessage({
+						role: "user",
+						content: [
+							{
+								type: "text",
+								text: `This session continues from a previous one. Here is the summary of where we left off:\n\n${summary}\n\nContinue from here. Wait for my first instruction before doing work.`,
+							},
+						],
+						timestamp: Date.now(),
+					});
+				},
+				withSession: async (rctx) => {
+					rctx.ui.notify("Fresh session — summary loaded", "info");
+				},
+			});
+			if (cancelled) ctx.ui.notify("New session cancelled", "info");
+		},
+		onError: (error) => {
+			ctx.ui.notify(`Summarization failed: ${error.message}`, "error");
+		},
+	});
+}
+
 export default function dumbzone(pi: ExtensionAPI) {
 	let nudged = false;
 
@@ -59,76 +114,36 @@ export default function dumbzone(pi: ExtensionAPI) {
 
 	pi.on("turn_end", (_event, ctx) => {
 		updateStatus(ctx);
+	});
 
+	// agent_settled: run finished, session idle — safe to offer the /fresh handoff.
+	// The prompt dispatches /fresh as a real command (expandPromptTemplates),
+	// because newSession is only available on command contexts.
+	pi.on("agent_settled", async (_event, ctx) => {
 		const usage = ctx.getContextUsage();
 		if (!usage || usage.tokens === null || usage.percent === null) return;
 
-		if (inDumbZone(usage.tokens, usage.percent)) {
-			if (!nudged) {
-				nudged = true;
-				ctx.ui.notify(
-					`Dumb zone: ${Math.round(usage.tokens / 1000)}k tokens · ${Math.round(usage.percent)}% (100k/40% rule). Run /fresh to summarize & start a new session.`,
-					"warning",
-				);
-			}
-		} else {
+		if (!inDumbZone(usage.tokens, usage.percent)) {
 			nudged = false;
+			return;
+		}
+		if (nudged) return;
+		nudged = true;
+
+		const stats = `${Math.round(usage.tokens / 1000)}k tokens · ${Math.round(usage.percent)}%`;
+		if (ctx.hasUI) {
+			const fresh = await ctx.ui.confirm(
+				"Dumb zone",
+				`${stats} (100k/40% rule) — response quality degrades here. Summarize & continue in a fresh session?`,
+			);
+			if (fresh) pi.sendUserMessage("/fresh", { expandPromptTemplates: true });
+		} else {
+			ctx.ui.notify(`Dumb zone: ${stats} (100k/40% rule). Run /fresh to summarize & start a new session.`, "warning");
 		}
 	});
 
 	pi.registerCommand("fresh", {
 		description: "Summarize this session, edit the summary, continue in a fresh session",
-		handler: async (_args, ctx) => {
-			if (ctx.mode !== "tui") {
-				ctx.ui.notify("/fresh needs interactive mode", "error");
-				return;
-			}
-			if (!ctx.isIdle()) {
-				ctx.ui.notify("Wait for the current run to finish", "warning");
-				return;
-			}
-
-			const parentSession = ctx.sessionManager.getSessionFile();
-			ctx.ui.notify("Summarizing session…", "info");
-
-			ctx.compact({
-				customInstructions:
-					"Optimize for handoff to a fresh session: preserve decisions made, open questions, key file paths, and the current goal.",
-				onComplete: async (result) => {
-					const edited = await ctx.ui.editor(
-						"Summary for the fresh session — edit freely, Esc to cancel",
-						result.summary,
-					);
-					if (edited === undefined) {
-						ctx.ui.notify("Stayed in current session", "info");
-						return;
-					}
-
-					const summary = edited.trim();
-					const { cancelled } = await ctx.newSession({
-						parentSession: parentSession ?? undefined,
-						setup: async (sm) => {
-							sm.appendMessage({
-								role: "user",
-								content: [
-									{
-										type: "text",
-										text: `This session continues from a previous one. Here is the summary of where we left off:\n\n${summary}\n\nContinue from here. Wait for my first instruction before doing work.`,
-									},
-								],
-								timestamp: Date.now(),
-							});
-						},
-						withSession: async (rctx) => {
-							rctx.ui.notify("Fresh session — summary loaded", "info");
-						},
-					});
-					if (cancelled) ctx.ui.notify("New session cancelled", "info");
-				},
-				onError: (error) => {
-					ctx.ui.notify(`Summarization failed: ${error.message}`, "error");
-				},
-			});
-		},
+		handler: async (_args, ctx) => runFresh(ctx),
 	});
 }
