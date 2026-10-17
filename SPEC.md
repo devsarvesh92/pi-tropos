@@ -1,4 +1,4 @@
-# Requirements — taste pi extension
+# Requirements — pi-tropos
 
 ## Functional
 

@@ -1,4 +1,6 @@
-# oh-my-pi
+# pi-tropos
+
+τρόπος (tropos) — *way, manner, style*. My way of pi.
 
 Personal pi customization bundle. One package, installable anywhere.
 
@@ -6,7 +8,8 @@ Personal pi customization bundle. One package, installable anywhere.
 
 - **Dumb-zone detection** — footer status `ctx Nk · N%`, colored dim → yellow → red
   by the 100k-tokens / 40%-of-window rule (warns from 80% of that line).
-  One-time nudge when entering the dumb zone; re-arms after compaction or a new session.
+  When a run settles in the dumb zone, a one-time confirm offers to auto-run `/fresh`;
+  decline suppresses it until the session drops out of the dumb zone.
 - **`/fresh`** — summarize the current session, edit the summary, continue in a fresh
   session seeded with it. Old session preserved and linked via `parentSession`.
 - **`/sessions [all]`** — browse and resume past sessions (project-scoped or everything).
@@ -17,9 +20,9 @@ Personal pi customization bundle. One package, installable anywhere.
 ## Install
 
 ```bash
-pi install git:github.com/<you>/oh-my-pi        # from git, anywhere
-pi install /path/to/oh-my-pi                     # local checkout
-pi -e /path/to/oh-my-pi                          # try once, no install
+pi install npm:pi-tropos                                   # from npm
+pi install git:github.com/devsarvesh92/oh-my-pi            # from git
+pi -e /path/to/oh-my-pi                                    # try once, no install
 ```
 
 ## Develop
