@@ -21,6 +21,8 @@ Personal pi customization bundle. One package, installable anywhere.
 - **`kaapi` theme** — filter-coffee dark: deep espresso base (`#15100D`), latte-foam text
   (`#E8DCCB`), caramel accent (`#D9984A`), matcha success, terracotta error. Warm and
   caffeinated. Select via `/settings` or `"theme": "kaapi"`.
+- **Barista mascot** — the working spinner becomes a steaming cup of kaapi; every other
+  brew cycle it's a boba 🧋. Hidden thinking blocks read "Steeping…".
 - **pi-smritikosh** — semantic codebase search, bundled as a dependency. One install
   gets everything; don't also install `npm:pi-smritikosh` separately or it loads twice.
 
