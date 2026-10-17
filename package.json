@@ -8,6 +8,10 @@
     "pi-coding-agent"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devsarvesh92/pi-tropos.git"
+  },
   "files": [
     "index.ts",
     "src"
