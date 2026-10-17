@@ -11,6 +11,8 @@ Personal pi customization bundle. One package, installable anywhere.
   session seeded with it. Old session preserved and linked via `parentSession`.
 - **`/sessions [all]`** — browse and resume past sessions (project-scoped or everything).
   Unnamed sessions are auto-named from the first user message.
+- **pi-smritikosh** — semantic codebase search, bundled as a dependency. One install
+  gets everything; don't also install `npm:pi-smritikosh` separately or it loads twice.
 
 ## Install
 

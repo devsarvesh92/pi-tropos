@@ -1,6 +1,6 @@
 {
   "name": "oh-my-pi",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Personal pi customization bundle — context-health indicator, session handoff, session browser",
   "type": "module",
   "keywords": [
@@ -14,12 +14,16 @@
   ],
   "pi": {
     "extensions": [
-      "./index.ts"
+      "./index.ts",
+      "node_modules/pi-smritikosh/index.ts"
     ]
   },
   "scripts": {
     "typecheck": "tsc -p tsconfig.json"
   },
+  "bundledDependencies": [
+    "pi-smritikosh"
+  ],
   "peerDependencies": {
     "@earendil-works/pi-coding-agent": "*"
   },
@@ -30,5 +34,8 @@
   },
   "engines": {
     "node": ">=22.19.0"
+  },
+  "dependencies": {
+    "pi-smritikosh": "^0.2.3"
   }
 }
