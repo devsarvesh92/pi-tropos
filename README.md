@@ -26,6 +26,8 @@ Personal pi customization bundle. One package, installable anywhere.
   no session titles. Auto-named sessions are sanitized (no markdown table junk).
 - **`/zen` mode** — reading mode for brainstorming: collapses all tool output and shrinks
   the footer to `$cost` + the ctx gauge. `/zen` again restores your previous state.
+- **`/peek <path>`** — transient code viewer: syntax-highlighted, line-numbered overlay.
+  Scroll with ↑/↓/jk/PgUp/PgDn/g/G, Esc or q closes. Leaves no trace in the chat.
 - **Barista mascot** — the working spinner becomes a steaming cup of kaapi; every other
   brew cycle it's a boba 🧋. Hidden thinking blocks read "Steeping…".
 - **pi-smritikosh** — semantic codebase search, bundled as a dependency. One install
