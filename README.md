@@ -21,7 +21,7 @@ Personal pi customization bundle. One package, installable anywhere.
 
 ```bash
 pi install npm:pi-tropos                                   # from npm
-pi install git:github.com/devsarvesh92/oh-my-pi            # from git
+pi install git:github.com/devsarvesh92/pi-tropos           # from git
 pi -e /path/to/oh-my-pi                                    # try once, no install
 ```
 
