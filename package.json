@@ -1,6 +1,6 @@
 {
   "name": "oh-my-pi",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Personal pi customization bundle — context-health indicator, session handoff, session browser",
   "type": "module",
   "keywords": [
@@ -14,8 +14,7 @@
   ],
   "pi": {
     "extensions": [
-      "./index.ts",
-      "node_modules/pi-smritikosh/index.ts"
+      "./index.ts"
     ]
   },
   "scripts": {
