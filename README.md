@@ -25,7 +25,9 @@ Personal pi customization bundle. One package, installable anywhere.
   plus the dumbzone `ctx` gauge right. Zero-valued counters hide; no full paths, no
   cache-hit %, no session titles. Auto-named sessions are sanitized (no markdown junk).
   `ctx` is the live context snapshot; the others are cumulative session billing counters
-  (`cached`/`stored` = provider prompt-cache reads/writes, re-read every turn).
+  (`cached`/`stored` = provider prompt-cache reads/writes, re-read every turn). The
+  counter with the highest share of session spend is highlighted in the accent color —
+  typically `cached`, which is why keeping ctx small (the dumb-zone rule) also saves money.
 - **`/zen` mode** — reading mode for brainstorming: collapses all tool output and shrinks
   the footer to `$cost` + the ctx gauge. `/zen` again restores your previous state.
 - **`/peek <path>`** — transient code viewer: syntax-highlighted, line-numbered overlay.
