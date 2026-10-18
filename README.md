@@ -57,6 +57,12 @@ Personal pi customization bundle. One package, installable anywhere.
   reach anyone. From PyPI it tracks its own releases. Requires [uv](https://astral.sh/uv)
   (`brew install uv`), which brings its own Python.
 
+  The CLI is checked against PyPI once a day in the background (never blocks startup, silent
+  offline) and a newer release is mentioned in a toast. Fully hands-off: set
+  `"autoUpgrade": true` in `~/.pi/agent/pi-smritikosh.json` — off by default, because a CLI
+  release can change the index schema and an automatic upgrade would then force a reindex
+  mid-work.
+
 ## Install
 
 ```bash

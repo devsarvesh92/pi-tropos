@@ -123,6 +123,44 @@ export async function bootstrap(): Promise<BootstrapResult> {
     return { ok: true, bin, message: `smritikosh installed at ${bin}` };
 }
 
+/** `smritikosh, version 0.4.0` → `0.4.0`. */
+export async function installedVersion(bin: string): Promise<string | null> {
+    const result = await run(bin, ["--version"], os.homedir());
+    return result.ok ? (result.stdout.match(/(\d+\.\d+\.\d+\S*)/)?.[1] ?? null) : null;
+}
+
+/** Newest release on PyPI, or null when offline. Cheap: ~0.3s, no uv. */
+export async function latestVersion(timeoutMs = 4000): Promise<string | null> {
+    try {
+        const response = await fetch("https://pypi.org/pypi/smritikosh/json", {
+            signal: AbortSignal.timeout(timeoutMs),
+        });
+        if (!response.ok) return null;
+        const body = (await response.json()) as { info?: { version?: string } };
+        return body.info?.version ?? null;
+    } catch {
+        return null; // offline, DNS failure, timeout — never surfaced
+    }
+}
+
+/** Semver-ish compare for x.y.z tags: numeric parts first, then final-beats-prerelease. */
+export function isNewer(candidate: string, current: string): boolean {
+	const parse = (v: string) => {
+		const m = v.match(/^(\d+)\.(\d+)\.(\d+)(.*)$/);
+		if (!m) return null;
+		return { n: [+m[1], +m[2], +m[3]], pre: /[a-zA-Z]/.test(m[4]) };
+	};
+	const a = parse(candidate);
+	const b = parse(current);
+	if (!a || !b) return false; // unparseable — never upgrade on garbage
+	for (let i = 0; i < 3; i++) {
+		if (a.n[i] !== b.n[i]) return a.n[i] > b.n[i];
+	}
+	// Same numeric core: a final release is newer than a prerelease.
+	if (a.pre !== b.pre) return !a.pre;
+	return false;
+}
+
 /** Pull the newest release from PyPI. */
 export async function upgrade(): Promise<BootstrapResult> {
     const uv = findUv();

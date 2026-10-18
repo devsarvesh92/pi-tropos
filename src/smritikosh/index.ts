@@ -7,6 +7,9 @@
  *
  * Config: ~/.pi/agent/pi-smritikosh.json  ({ "path": "...", "autoIndex": true })
  * Commands: /smritikosh-setup, /smritikosh-upgrade, /smritikosh-status
+ *
+ * The CLI is checked against PyPI once a day in the background; set
+ * "autoUpgrade": true to have newer releases installed without asking.
  */
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { loadConfig } from "./config.js";
@@ -15,6 +18,7 @@ import { registerSmritikoshCommands, resolveOnSessionStart } from "./commands.js
 import { registerSmritikoshTools } from "./tools.js";
 import { indexOnSessionStart, stopIndexer } from "./indexer.js";
 import { registerEnforcement } from "./enforce.js";
+import { upgradeCheckOnSessionStart } from "./upgrade.js";
 
 export default function (pi: ExtensionAPI) {
     const state: SmritikoshState = {
@@ -28,6 +32,8 @@ export default function (pi: ExtensionAPI) {
         resolveOnSessionStart(state, ctx);
         // IntelliJ-style: kick off background indexing immediately, never block startup.
         indexOnSessionStart(state, ctx);
+        // Same deal for the CLI itself: check PyPI at most once a day, off the critical path.
+        upgradeCheckOnSessionStart(state, ctx);
     });
 
     pi.on("session_shutdown", () => {
