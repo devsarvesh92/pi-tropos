@@ -126,7 +126,8 @@ export default function footer(pi: ExtensionAPI) {
 
 					const dir = ctx.cwd.split("/").pop() ?? ctx.cwd;
 					const branch = footerData.getGitBranch();
-					const left = theme.fg("dim", branch ? `${dir} ${branch}` : dir);
+					const model = ctx.model?.id ?? "no-model";
+					const left = theme.fg("dim", branch ? `${dir} ${branch} · ${model}` : `${dir} · ${model}`);
 					const metrics = telemetryLine(t, theme);
 					const right = [metrics, statuses].filter(Boolean).join("  ");
 
