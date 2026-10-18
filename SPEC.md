@@ -15,6 +15,8 @@
 | FR-5 | **Clean theme** — look & feel inspired by commandcode.ai | `commandcode` theme in `themes/` — onyx monochrome (#0B0B0C/#E4E4E7) with mint/amber/crimson diagnostics |
 | FR-6 | **Reading mode** — clean, low-noise view for brainstorming | Implemented: `/zen` toggle — collapses tool output, footer shrinks to cost + ctx gauge; restores prior state on exit |
 | FR-7 | **Font** — change pi's font | Done: terminal-level setting; recommendations documented in README (VS Code `terminal.integrated.*`) |
+| FR-8 | **TDD lock** — make test-first mechanically true, not merely requested | Implemented: `/tdd` + `tool_call` path gate. RED blocks source edits, GREEN freezes tests; phase advances only on a real exit code via `tdd_check`. Model cannot unlock itself (command, not tool) |
+| FR-9 | **`/feature` → `/execute` workflow** — plan in chat, build in background | Design agreed. `/feature <desc>`: fresh session (confirm if current has content) → scout-planner agent (smritikosh-driven, isolated) → plan in editor → optional GitHub/JIRA ticket → plan saved to `.pi/feature/<slug>.md`. Handoff is manual: `/execute <slug>` = `/bg -w --tdd --pr`, branch `bg/PROJ-123-<slug>`. Two agents only: scout-planner (context compression), reviewer (independence) |
 
 ## Non-functional
 

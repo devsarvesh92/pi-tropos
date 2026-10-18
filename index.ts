@@ -6,6 +6,7 @@ import dumbzone from "./src/dumbzone.js";
 import footer from "./src/footer.js";
 import peek from "./src/peek.js";
 import sessions from "./src/sessions.js";
+import tdd from "./src/tdd.js";
 
 export default function (pi: ExtensionAPI) {
 	barista(pi);
@@ -14,5 +15,6 @@ export default function (pi: ExtensionAPI) {
 	footer(pi);
 	peek(pi);
 	sessions(pi);
+	tdd(pi);
 	smritikosh(pi);
 }
