@@ -30,6 +30,12 @@ Personal pi customization bundle. One package, installable anywhere.
   typically `cached`, which is why keeping ctx small (the dumb-zone rule) also saves money.
 - **`/zen` mode** — reading mode for brainstorming: collapses all tool output and shrinks
   the footer to `$cost` + the ctx gauge. `/zen` again restores your previous state.
+- **`/bg` background agents** — run a task in a detached `pi -p` subprocess while you keep
+  working. `/bg <task>` shares the working tree (confirms first when it's dirty);
+  `/bg -w <task>` isolates in a git worktree on branch `bg/<name>`. `/bg` lists live tasks
+  (elapsed + last log line), `/bg show <name>` follows the log tail-f style, `/bg kill`,
+  `/bg clean`. Footer shows `bg ●N` while any run; you're notified on completion. Tasks get
+  task-derived names (`/bg -n` to override); bg sessions land in `/sessions all` too.
 - **`/peek <path>`** — transient code viewer: syntax-highlighted, line-numbered overlay.
   Scroll with ↑/↓/jk/PgUp/PgDn/g/G, Esc or q closes. Leaves no trace in the chat.
 - **Barista mascot** — the working spinner becomes a steaming cup of kaapi; every other

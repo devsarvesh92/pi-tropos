@@ -11,7 +11,7 @@
 | FR-3 | **Persist all sessions** | Pi persists every session to `~/.pi/agent/sessions/` natively |
 | FR-3a | **Session browser** — clean picker to find and resume past sessions | `/sessions` (project), `/sessions all` (everything) |
 | FR-3b | **Auto-name sessions** from first message for readable browsing | After turn 1, if unnamed |
-| FR-4 | **Background agent** — run an execution task in a background agent while continuing in the foreground; notify on completion; inspectable afterwards | Design agreed: detached `pi -p` subprocess, log file, `/bg` command. Open: uncommitted-changes collision policy |
+| FR-4 | **Background agent** — run an execution task in a background agent while continuing in the foreground; notify on completion; inspectable afterwards | Implemented: `/bg` (shared tree, dirty-confirm), `/bg -w` (worktree isolation), `/bg show` follow-mode log, `/bg kill`/`clean`, footer `bg ●N`, orphan reconcile. Collision policy: shared-by-default with confirm, `-w` for isolation |
 | FR-5 | **Clean theme** — look & feel inspired by commandcode.ai | `commandcode` theme in `themes/` — onyx monochrome (#0B0B0C/#E4E4E7) with mint/amber/crimson diagnostics |
 | FR-6 | **Reading mode** — clean, low-noise view for brainstorming | Implemented: `/zen` toggle — collapses tool output, footer shrinks to cost + ctx gauge; restores prior state on exit |
 | FR-7 | **Font** — change pi's font | Done: terminal-level setting; recommendations documented in README (VS Code `terminal.integrated.*`) |
