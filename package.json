@@ -1,7 +1,7 @@
 {
   "name": "pi-tropos",
   "version": "0.10.2",
-  "description": "Personal pi customization bundle — context-health indicator, session handoff, session browser",
+  "description": "Personal pi customization bundle — background agents, context-health indicator, session handoff, session browser, clean footer and themes",
   "type": "module",
   "keywords": [
     "pi-package",
