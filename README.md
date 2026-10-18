@@ -36,12 +36,6 @@ Personal pi customization bundle. One package, installable anywhere.
   (elapsed + last log line), `/bg show <name>` follows the log tail-f style, `/bg kill`,
   `/bg clean`. Footer shows `bg ●N` while any run; you're notified on completion. Tasks get
   task-derived names (`/bg -n` to override); bg sessions land in `/sessions all` too.
-- **`/tdd` lock** — test-first enforced by machine, not by asking. `/tdd on` detects your test
-  command and enters RED: edits to source files are *blocked* — only tests can be written.
-  The phase advances only when `tdd_check` runs the real command and sees a real non-zero
-  exit; then GREEN unlocks source and freezes the test files, so passing them means
-  implementing rather than weakening them. Non-code files (docs, config) are never blocked.
-  `/tdd off|red|green` is a user command, not a tool — the model cannot unlock itself.
 - **`/peek <path>`** — transient code viewer: syntax-highlighted, line-numbered overlay.
   Scroll with ↑/↓/jk/PgUp/PgDn/g/G, Esc or q closes. Leaves no trace in the chat.
 - **Barista mascot** — the working spinner becomes a steaming cup of kaapi; every other
