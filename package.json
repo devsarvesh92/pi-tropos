@@ -1,7 +1,7 @@
 {
   "name": "pi-tropos",
   "version": "0.11.0",
-  "description": "Personal pi customization bundle — background agents, context-health indicator, session handoff, session browser, clean footer and themes",
+  "description": "Personal pi customization bundle \u2014 semantic code search, background agents, context-health indicator, session handoff/browser, clean footer and themes",
   "type": "module",
   "keywords": [
     "pi-package",
@@ -28,21 +28,19 @@
   "scripts": {
     "typecheck": "tsc -p tsconfig.json"
   },
-  "bundledDependencies": [
-    "pi-smritikosh"
-  ],
   "peerDependencies": {
-    "@earendil-works/pi-coding-agent": "*"
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*",
+    "typebox": "*"
   },
   "devDependencies": {
     "@earendil-works/pi-coding-agent": "^0.86.1",
+    "@earendil-works/pi-tui": "^0.80.10",
     "@types/node": "^22.20.4",
+    "typebox": "^1.3.27",
     "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=22.19.0"
-  },
-  "dependencies": {
-    "pi-smritikosh": "^0.2.3"
   }
 }

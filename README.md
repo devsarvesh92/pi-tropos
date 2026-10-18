@@ -40,8 +40,22 @@ Personal pi customization bundle. One package, installable anywhere.
   Scroll with ↑/↓/jk/PgUp/PgDn/g/G, Esc or q closes. Leaves no trace in the chat.
 - **Barista mascot** — the working spinner becomes a steaming cup of kaapi; every other
   brew cycle it's a boba 🧋. Hidden thinking blocks read "Steeping…".
-- **pi-smritikosh** — semantic codebase search, bundled as a dependency. One install
-  gets everything; don't also install `npm:pi-smritikosh` separately or it loads twice.
+- **Semantic code search** — `smritikosh_search` / `smritikosh_chunks` / `smritikosh_index`
+  tools plus IntelliJ-style background indexing, merged in from the standalone
+  `pi-smritikosh` package (pi-tropos is now the only source — don't install both).
+  `grep`/`find`/`rg` are blocked for repo exploration and redirected to semantic search,
+  with a one-retry escape hatch for genuine literal-string matches.
+  The CLI itself comes from **PyPI**, not from this package:
+
+  ```bash
+  /smritikosh-setup      # uv tool install smritikosh
+  /smritikosh-upgrade    # uv tool upgrade smritikosh
+  /smritikosh-status     # binary, version, index state
+  ```
+
+  Vendoring the Python froze it at publish time — a CLI fix needed a pi-tropos release to
+  reach anyone. From PyPI it tracks its own releases. Requires [uv](https://astral.sh/uv)
+  (`brew install uv`), which brings its own Python.
 
 ## Install
 
